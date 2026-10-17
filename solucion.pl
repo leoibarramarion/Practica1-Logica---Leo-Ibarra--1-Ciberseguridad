@@ -42,6 +42,17 @@ proof(ejercicio03,
          'De Morgan'(3)     %Aplico ley de Morgan para obtener !p or !q
       ]).
 
+proof(ejercicio04,
+      [
+          'Premisa'(1),       % p or q
+          'Premisa'(2),       % p --> r
+          'Premisa'(3),       % q --> s
+          'Premisa'(4),       % !r
+          'MT'(2,4),          %por MT obtenemos !p
+          'Corte'(1,5),       %por corte obtenemos q
+          'E' --> (3,6)       % obtengo s eliminando --> de q --> s
+      ]).
+
 
 % Incluir el resto de demostraciones
 
@@ -101,4 +112,30 @@ rule('MT',
          'I' and (4,2),       % contradiccion B and !B
          'I' --> (3,5),       % A --> (B and !B)
          'I' ! (6)            % !A
+     ]).
+
+
+% Regla de Corte: de (A or B y !A) obtenemos B
+rule('Corte',
+     [A or B, !A],
+     B,
+     [
+         'Premisa'(1),        % A or B
+         'Premisa'(2),        % !A
+
+         % Demostramos que si A, podemos llegar a B por contradiccion
+         'Supuesto'(A),
+         'Supuesto'(!B),
+         'I' and (3,2),       % contradiccion A and !A
+         'I' --> (4,5),       % !B contradiccion
+         'I' ! (6),           % !!B
+         'E' ! (7),           % B
+         'I' --> (3,8),       % A --> B
+
+         % Si ocurre B, tenemos B
+         'Supuesto'(B),
+         'I' --> (10,10),     % B --> B
+
+         % En ambos casos de (A or B) obtenemos B
+         'E' or (1,9,11)
      ]).
