@@ -10,10 +10,8 @@
 %  @param +Correo: Correo electrónico institucional.
 %  @param +Grado:  Grado del alumno (Ciber | IA).
 
-alumno('Joan Clarke', 'j.clarke.2026@alumnos.urjc.es', 'Ciber').
+alumno('Leo Ibarra', 'l.ibarra.2026@alumnos.urjc.es', 'Ciber').
 
-%% Ejemplo alumno de IA
-% alumno('John McCarthy', 'j.mccarthy.2026@alumnos.urjc.es', 'IA').
 
 
 %% Este ejercicio esta ya resuelto
