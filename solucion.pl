@@ -32,6 +32,15 @@ proof(ejercicio02,
          'I' ! (1),         %obtengo !!p por la contradiccion q and !q
          'E' ! (2)          %obtengo p
       ]).
+      
+
+proof(ejercicio03,
+      [
+         'Premisa' (1),      %p and q --> r
+         'Premisa' (2),      % !r
+         'MT'(1,2),         %Aplico Modus Tolens para obtener !(p and r)
+         'De Morgan' (3)     %Aplico ley de Morgan para obtener !p or !r
+      ]).
 
 
 % Incluir el resto de demostraciones
@@ -41,3 +50,41 @@ proof(ejercicio02,
 %% Incluir reglas derivadas con el predicado rule/4    
 %
 % rule(+Nombre, +Premisas, +Consecuente, +Demostracion)
+
+
+
+% Regla de De Morgan: !(A and B) |- !A or !B
+rule('De Morgan',
+     [!(A and B)],
+     !A or !B,
+     [
+         'Premisa'(1),
+
+        
+         'Supuesto'(!(!A or !B)),  % Supongo la negacion de lo que quiero demostrar
+
+         %Demuestro A
+         'Supuesto'(!A),
+         'I' or a(3,!B),           % !A or !B
+         'I' and (4,2),            % contradiccion con !(!A or !B)
+         'I' --> (3,5),
+         'I' ! (6),                % !!A
+         'E' ! (7),                % A
+
+         %Demuestro B
+         'Supuesto'(!B),
+         'I' or b(!A,9),           % !A or !B
+         'I' and (10,2),           % contradiccion con !(!A or !B)
+         'I' --> (9,11),
+         'I' ! (12),               % !!B
+         'E' ! (13),               % B
+
+         % A and B contradice la premisa !(A and B)
+         'I' and (8,14),           % A and B
+         'I' and (15,1),           % (A and B) and !(A and B)
+
+         % eliminamos la doble negacion
+         'I' --> (2,16),
+         'I' ! (17),               % !!(!A or !B)
+         'E' ! (18)                % !A or !B
+     ]).
