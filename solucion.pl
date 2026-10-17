@@ -36,10 +36,10 @@ proof(ejercicio02,
 
 proof(ejercicio03,
       [
-         'Premisa' (1),      %p and q --> r
-         'Premisa' (2),      % !r
-         'MT'(1,2),         %Aplico Modus Tolens para obtener !(p and r)
-         'De Morgan' (3)     %Aplico ley de Morgan para obtener !p or !r
+         'Premisa'(1),      %p and q --> r
+         'Premisa'(2),      % !r
+         'MT'(1,2),         %Aplico Modus Tolens para obtener !(p and q)
+         'De Morgan'(3)     %Aplico ley de Morgan para obtener !p or !q
       ]).
 
 
