@@ -53,6 +53,19 @@ proof(ejercicio04,
           'E' --> (3,6)       % obtengo s eliminando --> de q --> s
       ]).
 
+proof(ejercicio05,
+      [
+          'Premisa'(1),       % p --> q or r
+          'Premisa'(2),       % !q
+          'Premisa'(3),       % !r
+          'Supuesto'(p),      % Suponego p para la contradiccion
+          'E' --> (1,4),      % q or r
+          'Corte'(5,2),       % Uso !q, para por Corte descartar q y obtener r
+          'I' and (6,3),      % r contradice la premisa !r
+          'I' --> (4,7),      % cierro supuesto p: p lleva a contradiccion
+          'I' ! (8)           % Por introduccion de negacion obtengo !p
+      ]).
+
 
 % Incluir el resto de demostraciones
 
