@@ -88,3 +88,17 @@ rule('De Morgan',
          'I' ! (17),               % !!(!A or !B)
          'E' ! (18)                % !A or !B
      ]).
+
+% Modus Tolens: de (A --> B and !B) obtenemos !A
+rule('MT',
+     [A --> B, !B],
+     !A,
+     [
+         'Premisa'(1),        % A --> B
+         'Premisa'(2),        % !B
+         'Supuesto'(A),       % suponemos A
+         'E' --> (1,3),       % obtenemos B
+         'I' and (4,2),       % contradiccion B and !B
+         'I' --> (3,5),       % A --> (B and !B)
+         'I' ! (6)            % !A
+     ]).
