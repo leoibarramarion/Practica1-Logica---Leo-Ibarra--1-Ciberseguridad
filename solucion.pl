@@ -28,7 +28,9 @@ proof(ejercicio01,
 
 proof(ejercicio02,
       [
-          % Completar con la demostración
+         'Premisa'(1),      %!p --> q and !q
+         'I' ! (1),         %obtengo !!p por la contradiccion q and !q
+         'E' ! (2)          %obtengo p
       ]).
 
 
