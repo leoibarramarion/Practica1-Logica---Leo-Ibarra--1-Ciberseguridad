@@ -52,7 +52,6 @@ proof(ejercicio04,
           'Corte'(1,5),       %por corte obtenemos q
           'E' --> (3,6)       % obtengo s eliminando --> de q --> s
       ]).
-
 proof(ejercicio05,
       [
           'Premisa'(1),       % p --> q or r
@@ -65,6 +64,23 @@ proof(ejercicio05,
           'I' --> (4,7),      % cierro supuesto p: p lleva a contradiccion
           'I' ! (8)           % Por introduccion de negacion obtengo !p
       ]).
+
+proof(ejercicio06,
+      [
+          'Premisa'(1),           % p and q --> r
+          'Supuesto'(p and !r),   % supongo el resultado esperado
+          'E' and a(2),           % p / elimino el and para obtener p y !r
+          'E' and b(2),           % !r
+          'Supuesto'(q),          % Supongo q para demostrar que lleva a contradiccion
+          'I' and (3,5),          % obtengo p and q para conseguir r
+          'E' --> (1,6),          % r
+          'I' and (7,4),          % r contradice !r
+          'I' --> (5,8),          % obtengo que q lleva a contradiccion
+          'I' ! (9),              % por introduccion de negacion obtengo !q
+          'I' --> (2,10)          % cierro el supuesto inicial (p and !r --> !q)
+      ]).
+
+
 
 
 % Incluir el resto de demostraciones
