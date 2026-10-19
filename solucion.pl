@@ -10,7 +10,7 @@
 %  @param +Correo: Correo electrónico institucional.
 %  @param +Grado:  Grado del alumno (Ciber | IA).
 
-alumno('Leo Ibarra', 'l.ibarra.2026@alumnos.urjc.es', 'Ciber').
+alumno('Leo Ibarra Marión', 'l.ibarra.2026@alumnos.urjc.es', 'Ciber').
 
 
 
@@ -80,17 +80,32 @@ proof(ejercicio06,
           'I' --> (2,10)          % cierro el supuesto inicial (p and !r --> !q)
       ]).
 
+proof(ejercicio07,
+      [
+          'Premisa'(1),       % p or q
+          'Premisa'(2),       % !p or r
+          'Premisa'(3),       % !q or r
+          'Supuesto'(p),      % de (!p or r) y p obtengo r, por lo que empiezo suponiendo p
+          'Corte2'(2,4),      % aplico la regla de corte dos, la cual he definido para este ejercicio - obtengo r
+          'I' --> (4,5),      % p --> r (ya tengo 1/2 para la eliminacion del or de la 1ª premisa)
+          'Supuesto'(q),      % empiezo suponiendo q para obtener q --> r
+          'Corte2'(3,7),      % aplico la regla de corte dos de nuevo para obtener r
+          'I' --> (7,8),      % consigo q --> r
+          'E' or (1,6,9)      % como tanto p como q implican r, de (p or q) obtengo r
+      ]).
 
 
 
-% Incluir el resto de demostraciones
+
+
+
+
 
 
 
 %% Incluir reglas derivadas con el predicado rule/4    
 %
 % rule(+Nombre, +Premisas, +Consecuente, +Demostracion)
-
 
 
 % Regla de De Morgan: !(A and B) |- !A or !B
@@ -165,6 +180,31 @@ rule('Corte',
          'Supuesto'(B),
          'I' --> (10,10),     % B --> B
 
-         % En ambos casos de (A or B) obtenemos B
+         % En ambos casos de (A or B) obtenemos B, por lo que puedo eliminar el or
+         'E' or (1,9,11)
+     ]).
+
+% regla de Corte dos: de (!A or B) y A, obtenemos B
+rule('Corte2',
+     [!A or B, A],
+     B,
+     [
+         'Premisa'(1),        % !A or B
+         'Premisa'(2),        % A
+
+         % Si ocurre !A, contradice A y puedo obtener B
+         'Supuesto'(!A),
+         'Supuesto'(!B),
+         'I' and (2,3),       % A and !A
+         'I' --> (4,5),
+         'I' ! (6),           % !!B
+         'E' ! (7),           % B
+         'I' --> (3,8),       % !A --> B
+
+         % Si ocurre B, obtenemos B directamente
+         'Supuesto'(B),
+         'I' --> (10,10),     % B --> B
+
+         % Elimino el or para obtener B
          'E' or (1,9,11)
      ]).
