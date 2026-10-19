@@ -48,8 +48,8 @@ proof(ejercicio04,
           'Premisa'(2),       % p --> r
           'Premisa'(3),       % q --> s
           'Premisa'(4),       % !r
-          'MT'(2,4),          %por MT obtenemos !p
-          'Corte'(1,5),       %por corte obtenemos q
+          'MT'(2,4),          %por MT obtengo !p
+          'Corte'(1,5),       %por corte obtengo q
           'E' --> (3,6)       % obtengo s eliminando --> de q --> s
       ]).
 proof(ejercicio05,
@@ -94,6 +94,17 @@ proof(ejercicio07,
           'E' or (1,6,9)      % como tanto p como q implican r, de (p or q) obtengo r
       ]).
 
+proof(ejercicio08,
+      [
+          'Supuesto'(!p or q),      % supongo el primer elemento del enunciado
+          'Supuesto'(q --> r),      % supongo el segundo elemento
+          'Supuesto'(p),            % supongo p para demostrar p --> r
+          'Corte2'(1,3),            % por corte 2 obtengo q usando (!p or q) y p
+          'E' --> (2,4),            % elimino q de (q --> r) para obtener r
+          'I' --> (3,5),            % cierro el supuesto p mediante la introduccion de -->
+          'I' --> (2,6),            % cierro el supuesto q --> r de la misma manera
+          'I' --> (1,7)            % cierro el supuesto inicial para obtener el resultado
+      ]).
 
 
 
