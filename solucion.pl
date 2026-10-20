@@ -106,6 +106,23 @@ proof(ejercicio08,
           'I' --> (1,7)            % cierro el supuesto inicial para obtener el resultado
       ]).
 
+proof(ejercicio09,
+      [
+          'Premisa'(1),       % 1. p and q --> r
+          'Premisa'(2),       % 2. r --> s
+          'Premisa'(3),       % 3. !s
+          'Premisa'(4),       % 4. t or q
+          'Premisa'(5),       % 5. !t
+          'MT'(2,3),          % obtengo !r por MT (r --> s y !s)
+          'Corte'(4,5),       % obtengo q por Corte (t or q y !t)
+          'Supuesto'(p),      % supongo p para intentar llegar a una contradiccion
+          'I' and (8,7),      % p and q
+          'E' --> (1,9),      % obtengo r eliminando --> de la premisa 1
+          'I' and (10,6),     % construyo r and !r para conseguir la contradiccion
+          'I' --> (8,11),     % p --> r and !r
+          'I' ! (12)          % obtnego !p y consigo el resultado final
+      ]).
+
 
 
 
