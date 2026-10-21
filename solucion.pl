@@ -80,16 +80,18 @@ proof(ejercicio06,
           'I' --> (2,10)          % cierro el supuesto inicial (p and !r --> !q)
       ]).
 
+
+%En este ejercicio (7) defino el Silogismo Disyuntivo para poder hacer (!A or B), A --> B y usarlo en otros ejercicios
 proof(ejercicio07,
       [
           'Premisa'(1),       % p or q
           'Premisa'(2),       % !p or r
           'Premisa'(3),       % !q or r
           'Supuesto'(p),      % de (!p or r) y p obtengo r, por lo que empiezo suponiendo p
-          'Corte2'(2,4),      % aplico la regla de corte dos, la cual he definido para este ejercicio - obtengo r
+          'SD'(2,4),          % aplico el Silogismo disyuntivo, la cual he definido para este ejercicio - obtengo r
           'I' --> (4,5),      % p --> r (ya tengo 1/2 para la eliminacion del or de la 1ª premisa)
           'Supuesto'(q),      % empiezo suponiendo q para obtener q --> r
-          'Corte2'(3,7),      % aplico la regla de corte dos de nuevo para obtener r
+          'SD'(3,7),          % aplico el SD de nuevo para obtener r
           'I' --> (7,8),      % consigo q --> r
           'E' or (1,6,9)      % como tanto p como q implican r, de (p or q) obtengo r
       ]).
@@ -99,7 +101,7 @@ proof(ejercicio08,
           'Supuesto'(!p or q),      % supongo el primer elemento del enunciado
           'Supuesto'(q --> r),      % supongo el segundo elemento
           'Supuesto'(p),            % supongo p para demostrar p --> r
-          'Corte2'(1,3),            % por corte 2 obtengo q usando (!p or q) y p
+          'SD'(1,3),                % por silogismo disyuntivo obtengo q usando (!p or q) y p
           'E' --> (2,4),            % elimino q de (q --> r) para obtener r
           'I' --> (3,5),            % cierro el supuesto p mediante la introduccion de -->
           'I' --> (2,6),            % cierro el supuesto q --> r de la misma manera
@@ -212,8 +214,8 @@ rule('Corte',
          'E' or (1,9,11)
      ]).
 
-% regla de Corte dos: de (!A or B) y A, obtenemos B
-rule('Corte2',
+% Silogismo Disyuntivo: de (!A or B) y A, obtenemos B
+rule('SD',
      [!A or B, A],
      B,
      [
