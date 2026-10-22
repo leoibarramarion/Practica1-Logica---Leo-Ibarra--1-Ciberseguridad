@@ -57,7 +57,7 @@ proof(ejercicio05,
           'Premisa'(1),       % p --> q or r
           'Premisa'(2),       % !q
           'Premisa'(3),       % !r
-          'Supuesto'(p),      % Suponego p para la contradiccion
+          'Supuesto'(p),      % Supongo p para la contradiccion
           'E' --> (1,4),      % q or r
           'Corte'(5,2),       % Uso !q, para por Corte descartar q y obtener r
           'I' and (6,3),      % r contradice la premisa !r
@@ -68,7 +68,7 @@ proof(ejercicio05,
 proof(ejercicio06,
       [
           'Premisa'(1),           % p and q --> r
-          'Supuesto'(p and !r),   % supongo el resultado esperado
+          'Supuesto'(p and !r),   % supongo el antecedente de la implicacion final
           'E' and a(2),           % p / elimino el and para obtener p y !r
           'E' and b(2),           % !r
           'Supuesto'(q),          % Supongo q para demostrar que lleva a contradiccion
@@ -81,27 +81,31 @@ proof(ejercicio06,
       ]).
 
 
-%En este ejercicio (7) defino el Silogismo Disyuntivo para poder hacer (!A or B), A --> B y usarlo en otros ejercicios
+
+
 proof(ejercicio07,
       [
-          'Premisa'(1),       % p or q
-          'Premisa'(2),       % !p or r
-          'Premisa'(3),       % !q or r
-          'Supuesto'(p),      % de (!p or r) y p obtengo r, por lo que empiezo suponiendo p
-          'SD'(2,4),          % aplico el Silogismo disyuntivo, la cual he definido para este ejercicio - obtengo r
-          'I' --> (4,5),      % p --> r (ya tengo 1/2 para la eliminacion del or de la 1ª premisa)
-          'Supuesto'(q),      % empiezo suponiendo q para obtener q --> r
-          'SD'(3,7),          % aplico el SD de nuevo para obtener r
-          'I' --> (7,8),      % consigo q --> r
-          'E' or (1,6,9)      % como tanto p como q implican r, de (p or q) obtengo r
+          'Premisa'(1),      % p or q
+          'Premisa'(2),      % !p or r
+          'Premisa'(3),      % !q or r
+          'Supuesto'(!r),    % supongo !r para llegar a contradiccion   
+          'Corte2'(3,4),     % de (!q or r) y !r obtengo !q
+          'Corte2'(2,4),     % de (!p or r) y !r obtengo !p
+          'Corte2'(1,5),     % de (p or q) y !q obtengo p
+          'I' and (7,6),     % p and !p
+          'I' --> (4,8),     % !r --> p and !p
+          'I' ! (9),         % !!r
+          'E' ! (10)         % r
       ]).
+          
+          
 
 proof(ejercicio08,
       [
           'Supuesto'(!p or q),      % supongo el primer elemento del enunciado
           'Supuesto'(q --> r),      % supongo el segundo elemento
           'Supuesto'(p),            % supongo p para demostrar p --> r
-          'SD'(1,3),                % por silogismo disyuntivo obtengo q usando (!p or q) y p
+          'Corte2'(1,3),            % por Corte2 obtengo q usando (!p or q) y p
           'E' --> (2,4),            % elimino q de (q --> r) para obtener r
           'I' --> (3,5),            % cierro el supuesto p mediante la introduccion de -->
           'I' --> (2,6),            % cierro el supuesto q --> r de la misma manera
@@ -197,11 +201,11 @@ rule('Corte',
          'Premisa'(1),        % A or B
          'Premisa'(2),        % !A
 
-         % Demostramos que si A, podemos llegar a B por contradiccion
+         % Demostramos que si A, se puede llegar a B por contradiccion
          'Supuesto'(A),
          'Supuesto'(!B),
          'I' and (3,2),       % contradiccion A and !A
-         'I' --> (4,5),       % !B contradiccion
+         'I' --> (4,5),       % !B --> A and !A
          'I' ! (6),           % !!B
          'E' ! (7),           % B
          'I' --> (3,8),       % A --> B
@@ -214,27 +218,29 @@ rule('Corte',
          'E' or (1,9,11)
      ]).
 
-% Silogismo Disyuntivo: de (!A or B) y A, obtenemos B
-rule('SD',
-     [!A or B, A],
-     B,
+% Regla de Corte 2: de (A or B) y !B obtenemos A
+rule('Corte2',
+     [A or B, !B],
+     A,
      [
-         'Premisa'(1),        % !A or B
-         'Premisa'(2),        % A
+         'Premisa'(1),        % 1. A or B
+         'Premisa'(2),        % 2. !B
 
-         % Si ocurre !A, contradice A y puedo obtener B
-         'Supuesto'(!A),
-         'Supuesto'(!B),
-         'I' and (2,3),       % A and !A
-         'I' --> (4,5),
-         'I' ! (6),           % !!B
-         'E' ! (7),           % B
-         'I' --> (3,8),       % !A --> B
+         % 1. Obtengo A directamente
+         'Supuesto'(A),       % 3. A
+         'I' --> (3,3),       % 4. A --> A
 
-         % Si ocurre B, obtenemos B directamente
-         'Supuesto'(B),
-         'I' --> (10,10),     % B --> B
+         % 2. B contradice !B, por lo que se puede obtener A
+         'Supuesto'(B),       % 5. B
+         'Supuesto'(!A),      % 6. !A
+         'I' and (5,2),       % 7. B and !B
+         'I' --> (6,7),       % 8. !A --> B and !B
+         'I' ! (8),           % 9. !!A
+         'E' ! (9),           % 10. A
+         'I' --> (5,10),      % 11. B --> A
 
-         % Elimino el or para obtener B
-         'E' or (1,9,11)
+         % En ambos casos de A or B obtenemos A, por lo que puedo eliminar entonces el or
+         'E' or (1,4,11)      % 12. A
      ]).
+
+
