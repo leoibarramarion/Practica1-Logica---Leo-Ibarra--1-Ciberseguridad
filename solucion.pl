@@ -108,7 +108,7 @@ proof(ejercicio08,
         'Supuesto'(!q),           % supongo !q para poder aplicar Corte2
         'Corte2'(1,4),            % obtengo !p usando (!p or q) y !q por Corte2
         'I' and (3,5),            % construyo la contradiccion p and !p
-        'I' --> (4,6),            % cierro el supuesto !q y obtengo (!q --> p) and !p
+        'I' --> (4,6),            % cierro el supuesto !q y obtengo !q --> (p and !p)
         'I' ! (7),                % obtengo !!q por introduccion de negacion
         'E' ! (8),                % elimino la doble negacion y obtengo q
         'E' --> (2,9),            % elimino --> de (q --> r) para obtener r
