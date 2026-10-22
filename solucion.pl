@@ -101,16 +101,21 @@ proof(ejercicio07,
           
 
 proof(ejercicio08,
-      [
-          'Supuesto'(!p or q),      % supongo el primer elemento del enunciado
-          'Supuesto'(q --> r),      % supongo el segundo elemento
-          'Supuesto'(p),            % supongo p para demostrar p --> r
-          'Corte2'(1,3),            % por Corte2 obtengo q usando (!p or q) y p
-          'E' --> (2,4),            % elimino q de (q --> r) para obtener r
-          'I' --> (3,5),            % cierro el supuesto p mediante la introduccion de -->
-          'I' --> (2,6),            % cierro el supuesto q --> r de la misma manera
-          'I' --> (1,7)            % cierro el supuesto inicial para obtener el resultado
-      ]).
+    [
+        'Supuesto'(!p or q),      % supongo el primer elemento del enunciado
+        'Supuesto'(q --> r),      % supongo el segundo elemento
+        'Supuesto'(p),            % supongo p para demostrar p --> r
+        'Supuesto'(!q),           % supongo !q para poder aplicar Corte2
+        'Corte2'(1,4),            % obtengo !p usando (!p or q) y !q por Corte2
+        'I' and (3,5),            % construyo la contradiccion p and !p
+        'I' --> (4,6),            % cierro el supuesto !q y obtengo (!q --> p) and !p
+        'I' ! (7),                % obtengo !!q por introduccion de negacion
+        'E' ! (8),                % elimino la doble negacion y obtengo q
+        'E' --> (2,9),            % elimino --> de (q --> r) para obtener r
+        'I' --> (3,10),           % cierro el supuesto p para obtener p --> r
+        'I' --> (2,11),           % cierro el supuesto q --> r
+        'I' --> (1,12)            % cierro el supuesto inicial para obtener el resultado
+    ]).
 
 proof(ejercicio09,
       [
