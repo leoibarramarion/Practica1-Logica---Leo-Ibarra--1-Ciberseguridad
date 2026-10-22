@@ -228,24 +228,24 @@ rule('Corte2',
      [A or B, !B],
      A,
      [
-         'Premisa'(1),        % 1. A or B
-         'Premisa'(2),        % 2. !B
+         'Premisa'(1),        % A or B
+         'Premisa'(2),        % !B
 
          % 1. Obtengo A directamente
-         'Supuesto'(A),       % 3. A
-         'I' --> (3,3),       % 4. A --> A
+         'Supuesto'(A),       % A
+         'I' --> (3,3),       % A --> A
 
          % 2. B contradice !B, por lo que se puede obtener A
-         'Supuesto'(B),       % 5. B
-         'Supuesto'(!A),      % 6. !A
-         'I' and (5,2),       % 7. B and !B
-         'I' --> (6,7),       % 8. !A --> B and !B
-         'I' ! (8),           % 9. !!A
-         'E' ! (9),           % 10. A
-         'I' --> (5,10),      % 11. B --> A
+         'Supuesto'(B),       % B
+         'Supuesto'(!A),      % !A
+         'I' and (5,2),       % B and !B
+         'I' --> (6,7),       % !A --> B and !B
+         'I' ! (8),           % !!A
+         'E' ! (9),           % A
+         'I' --> (5,10),      % B --> A
 
          % En ambos casos de A or B obtenemos A, por lo que puedo eliminar entonces el or
-         'E' or (1,4,11)      % 12. A
+         'E' or (1,4,11)      % A
      ]).
 
 
